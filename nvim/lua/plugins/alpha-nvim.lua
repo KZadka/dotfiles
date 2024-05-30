@@ -8,7 +8,7 @@ local function get_branch_name()
 end
 
 local function config_update_label()
-    handle = io.popen('cd ' .. config_dir .. '; git rev-list --count upstream/' .. get_branch_name() .. ' ^HEAD')
+    local handle = io.popen('cd ' .. config_dir .. '; git rev-list --count origin/' .. get_branch_name() .. ' ^HEAD')
     local output = handle:read("*a")
     handle:close()
     local update_count = tonumber(output) or 0
@@ -17,7 +17,7 @@ end
 
 -- INFO: MVP
 -- TODO: script for updating config?
-local config_update_cmd = ":te cd " .. config_dir .. "; git pull upstream; echo 'Please restart NeoVim if necessary :)'<CR>"
+local config_update_cmd = ":te cd " .. config_dir .. "; git pull origin; echo 'Please restart NeoVim if necessary :)'<CR>"
 -- local config_clean_cmd = ":!rm -rf ~/.local/share/nvim/; rm -rf ~/.local/state/nvim/; rm -rf ~/.cache/nvim/"
 
 return {
